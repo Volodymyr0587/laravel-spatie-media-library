@@ -1,4 +1,4 @@
-<x-main pageTitle={{ $post->title }}>
+<x-main pageTitle="{{ $post->title }}">
     <div class="max-w-6xl mx-auto mt-12">
         <h1>{{ $post->title }}</h1>
         {{ $post->getFirstMedia('downloads') }}

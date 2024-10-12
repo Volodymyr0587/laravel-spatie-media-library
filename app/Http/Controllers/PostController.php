@@ -37,13 +37,13 @@ class PostController extends Controller
         $post = Post::create($postData);
 
         if ($request->hasFile('image')) {
-            $post->addMediaFromRequest('image')
+            $post->addMediaFromRequest('image')->withResponsiveImages()
                 ->usingName($post->title)
                 ->toMediaCollection('images');
         }
 
         if ($request->hasFile('download')) {
-            $post->addMediaFromRequest('download')
+            $post->addMediaFromRequest('download')->withResponsiveImages()
                 ->usingName($post->title)
                 ->toMediaCollection('downloads');
         }
@@ -77,13 +77,13 @@ class PostController extends Controller
         $post->update($postData);
 
         if ($request->hasFile('image')) {
-            $post->addMediaFromRequest('image')
+            $post->addMediaFromRequest('image')->withResponsiveImages()
                 ->usingName($post->title)
                 ->toMediaCollection('images');
         }
 
         if ($request->hasFile('download')) {
-            $post->addMediaFromRequest('download')
+            $post->addMediaFromRequest('download')->withResponsiveImages()
                 ->usingName($post->title)
                 ->toMediaCollection('downloads');
         }
@@ -118,5 +118,10 @@ class PostController extends Controller
     public function downloadAllMedia()
     {
         return MediaStream::create('downloadsAll.zip')->addMedia(Media::all());
+    }
+
+    public function resImage(Post $post)
+    {
+        return view('posts.show', compact('post'));
     }
 }
