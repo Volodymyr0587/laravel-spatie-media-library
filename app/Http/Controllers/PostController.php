@@ -13,7 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -33,9 +34,11 @@ class PostController extends Controller
 
         $post = Post::create($postData);
 
-        $post->addMediaFromRequest('image')
-            ->usingName($post->title)
-            ->toMediaCollection();
+        if ($request->hasFile('image')) {
+            $post->addMediaFromRequest('image')
+                ->usingName($post->title)
+                ->toMediaCollection('images');
+        }
 
         return to_route('posts.index')->with('success', "Post '$post->title' created successfully");
     }
@@ -43,32 +46,45 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StorePostRequest $request, Post $post)
     {
-        //
+        $postData = $request->validated();
+
+        $post->update($postData);
+
+        if ($request->hasFile('image')) {
+            $post->clearMediaCollection('images');
+            $post->addMediaFromRequest('image')
+                ->usingName($post->title)
+                ->toMediaCollection('images');
+        }
+
+        return to_route('posts.index')->with('success', "Post '$post->title' created successfully");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return to_route('posts.index')->with('success', 'Post deleted successfully');
     }
 }
