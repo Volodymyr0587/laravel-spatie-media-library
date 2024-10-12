@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Support\MediaStream;
 
 class PostController extends Controller
 {
@@ -99,5 +101,24 @@ class PostController extends Controller
         $post->delete();
 
         return to_route('posts.index')->with('success', 'Post deleted successfully');
+    }
+
+    public function download(Post $post)
+    {
+        $media = $post->getFirstMedia('downloads');
+
+        return $media;
+    }
+
+    public function downloads()
+    {
+        $media = Media::where('collection_name', 'downloads')->get();
+
+        return MediaStream::create('downloads.zip')->addMedia($media);
+    }
+
+    public function downloadAllMedia()
+    {
+        return MediaStream::create('downloadsAll.zip')->addMedia(Media::all());
     }
 }
