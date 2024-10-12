@@ -24,6 +24,16 @@
                             @enderror
                     </div>
                 </div>
+                <div class="sm:col-span-6">
+                    <label for="download" class="block text-sm font-medium text-gray-700"> Post Image Download </label>
+                    <div class="mt-1">
+                        <input type="file" id="download" name="download"
+                            class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                            @error('download')
+                            <span class="mt-2 text-red-500">{{ $message }}</span>
+                            @enderror
+                    </div>
+                </div>
                 {{-- <div class="col-span-6">
                     <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
                     <select id="country" name="country" autocomplete="country-name"

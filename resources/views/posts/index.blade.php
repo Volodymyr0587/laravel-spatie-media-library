@@ -35,8 +35,8 @@
                                             src="{{ $post->getFirstMediaUrl('images') }}" />
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{-- <img class="w-8 h-8 rounded-full"
-                                            src="{{ $post->getFirstMediaUrl('downloads')->getUrl('thumb') }}" /> --}}
+                                        <img class="w-8 h-8 rounded-full"
+                                            src="{{ $post->getFirstMediaUrl('downloads') }}" />
                                     </td>
                                     <td class="px-6 py-4 text-right text-sm">
                                         <div class="flex space-x-2">

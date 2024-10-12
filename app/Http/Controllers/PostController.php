@@ -40,6 +40,12 @@ class PostController extends Controller
                 ->toMediaCollection('images');
         }
 
+        if ($request->hasFile('download')) {
+            $post->addMediaFromRequest('download')
+                ->usingName($post->title)
+                ->toMediaCollection('downloads');
+        }
+
         return to_route('posts.index')->with('success', "Post '$post->title' created successfully");
     }
 
@@ -73,6 +79,13 @@ class PostController extends Controller
             $post->addMediaFromRequest('image')
                 ->usingName($post->title)
                 ->toMediaCollection('images');
+        }
+
+        if ($request->hasFile('download')) {
+            $post->clearMediaCollection('downloads');
+            $post->addMediaFromRequest('download')
+                ->usingName($post->title)
+                ->toMediaCollection('downloads');
         }
 
         return to_route('posts.index')->with('success', "Post '$post->title' created successfully");
