@@ -42,12 +42,12 @@
                                         <div class="flex space-x-2">
                                             <a href="{{ route('posts.edit', $post->id) }}"
                                                 class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Edit</a>
-                                            <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                            <form
                                                 method="POST" action="{{ route('posts.destroy', $post) }}"
                                                 onsubmit="return confirm('Are you sure?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit">Delete</button>
+                                                <button class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white" type="submit">Delete</button>
                                             </form>
                                         </div>
                                     </td>
