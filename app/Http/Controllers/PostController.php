@@ -33,6 +33,10 @@ class PostController extends Controller
 
         $post = Post::create($postData);
 
+        $post->addMediaFromRequest('image')
+            ->usingName($post->title)
+            ->toMediaCollection();
+
         return to_route('posts.index')->with('success', "Post '$post->title' created successfully");
     }
 
