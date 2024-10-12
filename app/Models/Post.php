@@ -12,4 +12,13 @@ class Post extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     protected $fillable = ['title', 'body'];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images')
+            ->singleFile();
+
+        $this->addMediaCollection('downloads')
+            ->singleFile();
+    }
 }

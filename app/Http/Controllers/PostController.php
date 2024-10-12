@@ -77,14 +77,12 @@ class PostController extends Controller
         $post->update($postData);
 
         if ($request->hasFile('image')) {
-            $post->clearMediaCollection('images');
             $post->addMediaFromRequest('image')
                 ->usingName($post->title)
                 ->toMediaCollection('images');
         }
 
         if ($request->hasFile('download')) {
-            $post->clearMediaCollection('downloads');
             $post->addMediaFromRequest('download')
                 ->usingName($post->title)
                 ->toMediaCollection('downloads');
